@@ -1,6 +1,144 @@
+acl (2.2.51-5ubuntu1) precise; urgency=low
+
+  * Merge from Debian testing, remaining changes:
+    - Build-depend on gettext:any, since we only need it to run tools at
+      build-time.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Sat, 17 Dec 2011 19:04:30 -0800
+
+acl (2.2.51-5) unstable; urgency=low
+
+  * Build if autconf2.13 is installed
+    Add 12-643588-acl-autoconf-version-check.patch
+    Patch by Wookey
+    Closes: 643588
+  * Add Debian epoch version to libattr1-dev dependency
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Sat, 03 Dec 2011 22:20:25 +1100
+
+acl (2.2.51-4ubuntu1) precise; urgency=low
+
+  * Merge from Debian testing, remaining changes:
+    - Build-depend on gettext:any, since we only need it to run tools at
+      build-time.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Mon, 14 Nov 2011 21:30:21 -0800
+
+acl (2.2.51-4) unstable; urgency=low
+
+  * Fix FTBFS on hurd-i386
+    Add 11-636512-fix-ftbfs4hurd.patch
+    Patch by Svante Signell
+    Closes: 636512
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Fri, 04 Nov 2011 12:00:03 +1100
+
+acl (2.2.51-3ubuntu1) precise; urgency=low
+
+  * Build-depend on gettext:any, since we only need it to run tools at
+    build-time.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Sat, 05 Nov 2011 17:34:39 +0000
+
+acl (2.2.51-3) unstable; urgency=medium
+
+  * libacl1: Don't pass "-Zbzip2 -z9" to dpkg-deb
+    Closes: 633782
+  * Don't ship .la files
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Sun, 17 Jul 2011 12:58:36 +1000
+
+acl (2.2.51-2) unstable; urgency=low
+
+  * Set standards-version to 3.9.2
+  * Build-depend and depend on libattr1-dev >= 2.4.46
+  * Append 'libacl 1 libacl1 (>= 2.2.51-2)' to
+    debian/libacl1/DEBIAN/shlibs
+  * Pass "-Zbzip2 -z9" to dpkg-deb
+  * Don't ship .la files
+  * Fix debian-rules-missing-recommended-target
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Tue, 05 Jul 2011 13:23:28 +1000
+
+acl (2.2.51-1) unstable; urgency=low
+
+  * New upstream (Closes: #626623).
+  - All patches were applied upstream, except moving binaries to /bin
+  * Add multiarch support (Closes: #528140).
+
+ -- Luk Claes <luk@debian.org>  Thu, 23 Jun 2011 23:18:55 +0200
+
+acl (2.2.49-5) unstable; urgency=medium
+
+  * Add myself as comaintainer
+  * Use bash in build process (Closes: #621929)
+  * Pass host & build to allow cross builds to succeed (Closes: #284167)
+  * Remove references to other libraries from dependency_libs field
+    (Closes: #622409)
+
+ -- Luk Claes <luk@debian.org>  Sat, 28 May 2011 09:10:42 +0200
+
+acl (2.2.49-4) unstable; urgency=low
+
+  * Migrate to having binaries in sbindir (closes: #590240)
+
+ -- Nathan Scott <nathans@debian.org>  Wed, 28 Jul 2010 22:15:20 +1000
+
+acl (2.2.49-3) unstable; urgency=low
+
+  * Add upstream patches 
+    03-re-stat_file_after_chown.patch
+    04-print_useful_error_from_read_acl_comments.patch
+    05-restore_crash_on_malformed_input.patch
+    06-fix_potential_null_pointer_dereference.patch
+    09-prevent_setfacl_--restore_from_SIGSEGV.patch
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Tue, 08 Jun 2010 17:44:21 +1000
+
+acl (2.2.49-2) unstable; urgency=low
+
+  * Debian source format is 3.0 (quilt)
+    Add 01-Makefile.patch
+  * Fix CVE-2009-4411
+    Refer to https://savannah.nongnu.org/bugs/?28131
+    Add 02-499076-physical-walk.patch
+    Patch by Markus Steinborn
+    Closes: 499076
+  * Fix debhelper-but-no-misc-depends
+  * Fix out-of-date-standards-version
+  * Fix no-upstream-changelog
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Tue, 02 Feb 2010 11:40:55 +1100
+
+acl (2.2.49-1) unstable; urgency=low
+
+  * New upstream release 
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Tue, 24 Nov 2009 21:39:57 +1100
+
+acl (2.2.48-1) unstable; urgency=low
+
+  * New upstream release 
+  * Fix out-of-date-standards-version
+  * Update homepage in debian/control
+  * Add Vcs-Git and Vcs-Browser to debian/control
+  * Update download page in debian/copyright
+  * Update debian/watch
+  * Add automake as a build-dependency
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Tue, 25 Aug 2009 10:29:59 +1000
+
+acl (2.2.47-3) unstable; urgency=low
+
+  * DH compatibility level is 7
+  * Fix out-of-date-standards-version
+  * Fix incorrect-libdir-in-la-file 
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Fri, 03 Jul 2009 20:44:21 +1000
+
 acl (2.2.47-2) unstable; urgency=low
 
-  * Acknowledge NMU. Closes: Closes: #477515
+  * Acknowledge NMU. Closes: #477515
 
  -- Anibal Monsalve Salazar <anibal@debian.org>  Thu, 24 Apr 2008 06:47:12 +1000
 
@@ -330,6 +468,3 @@ acl (2.0.2-1) unstable; urgency=low
 
  -- Nathan Scott <nathans@debian.org>  Tue, 26 Feb 2002 13:25:26 +1100
 
-Local variables:
-mode: debian-changelog
-End:
