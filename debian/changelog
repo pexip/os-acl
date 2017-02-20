@@ -1,3 +1,76 @@
+acl (2.2.52-2pexip1) pexip; urgency=low
+
+  * Migrate to Jessie
+
+ -- John-Mark Bell <jmb@pexip.com>  Mon, 20 Feb 2017 10:05:12 +0000
+
+acl (2.2.52-2) unstable; urgency=medium
+
+  * ACK NMU.
+    Closes: #759591.
+  * Standards-Version: 3.9.5.
+  * Refresh patches.
+  * Really remove Luk Claes as uploader.
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Mon, 08 Sep 2014 07:29:24 +0100
+
+acl (2.2.52-1.1) unstable; urgency=high
+
+  * Non-maintainer upload to fix the installer.
+  * Use default compression for binary packages to fix the debian
+    installer (Closes: #751633).  Patch by  Ansgar Burchardt.
+  * Remove Luk Claes as uploader on his request (Closes: #748492).
+
+ -- Petter Reinholdtsen <pere@debian.org>  Thu, 28 Aug 2014 21:45:22 +0200
+
+acl (2.2.52-1) unstable; urgency=low
+
+  * New upstream release 2.2.52 
+  * Standards Version is 3.9.4
+  * Update debian/rules
+    Upstream renamed build/ to package/
+  * Upstream renamed configure.in to configure.ac and didn't ship it.
+    Add 01-configure.in.patch
+  * Fix missing ldflags
+    Add 02-687535-fix-missing-ldflags.patch
+    Patch by Simon Ruderich
+    Closes: #687535
+  * autoconf update for arm64 building
+    Closes: #689610
+  * Update debian/watch
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Tue, 21 May 2013 09:39:24 +1000
+
+acl (2.2.51-8) unstable; urgency=low
+
+  * Enable hardening build flags 
+    Closes: #673998
+  * DH compatibility level is 9
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Wed, 13 Jun 2012 18:08:12 +1000
+
+acl (2.2.51-7) unstable; urgency=low
+
+  * Build-depend on gettext. If it build-depends on gettext:any, the
+    auto-builders stop with the message below.
+    Dependency installability problem for acl on armel, armhf, hurd-i386,
+    kfreebsd-amd64, kfreebsd-i386, mips, powerpc, s390, s390x and sparc:
+    acl (= 2.2.51-6) build-depends on missing:
+    - not-existing-build-dependency-for-any
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Fri, 11 May 2012 19:06:24 +1000
+
+acl (2.2.51-6) unstable; urgency=low
+
+  * Merge 2.2.51-5ubuntu1
+    - Build-depend on gettext:any, since we only need it to run tools at
+      build-time.
+  * Use /bin/sh as CONFIG_SHELL in debian/rules
+    Closes: #671987
+  * Fix out-of-date-standards-version
+
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Thu, 10 May 2012 13:04:03 +1000
+
 acl (2.2.51-5ubuntu1pexip1) pexip; urgency=low
 
   * Prepare Pexip packaging
@@ -92,7 +165,7 @@ acl (2.2.49-4) unstable; urgency=low
 
 acl (2.2.49-3) unstable; urgency=low
 
-  * Add upstream patches 
+  * Add upstream patches
     03-re-stat_file_after_chown.patch
     04-print_useful_error_from_read_acl_comments.patch
     05-restore_crash_on_malformed_input.patch
@@ -118,13 +191,13 @@ acl (2.2.49-2) unstable; urgency=low
 
 acl (2.2.49-1) unstable; urgency=low
 
-  * New upstream release 
+  * New upstream release
 
  -- Anibal Monsalve Salazar <anibal@debian.org>  Tue, 24 Nov 2009 21:39:57 +1100
 
 acl (2.2.48-1) unstable; urgency=low
 
-  * New upstream release 
+  * New upstream release
   * Fix out-of-date-standards-version
   * Update homepage in debian/control
   * Add Vcs-Git and Vcs-Browser to debian/control
@@ -138,7 +211,7 @@ acl (2.2.47-3) unstable; urgency=low
 
   * DH compatibility level is 7
   * Fix out-of-date-standards-version
-  * Fix incorrect-libdir-in-la-file 
+  * Fix incorrect-libdir-in-la-file
 
  -- Anibal Monsalve Salazar <anibal@debian.org>  Fri, 03 Jul 2009 20:44:21 +1000
 
