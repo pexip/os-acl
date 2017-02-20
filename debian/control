@@ -10,7 +10,7 @@ Standards-Version: 3.9.2
 Homepage: http://savannah.nongnu.org/projects/acl/
 Vcs-Git: git://git.savannah.nongnu.org/acl.git
 Vcs-Browser: http://git.savannah.gnu.org/cgit/acl.git
-XS-Pexip-Upstream: http://archive.ubuntu.com/ubuntu/ precise
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ jessie
 
 Package: acl
 Depends: ${shlibs:Depends}, ${misc:Depends}
