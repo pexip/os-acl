@@ -1,3 +1,9 @@
+acl (2.2.52-3pexip1) pexip; urgency=medium
+
+  * Migrate to Stretch
+
+ -- John-Mark Bell <jmb@pexip.com>  Tue, 10 Jul 2018 00:19:36 +0000
+
 acl (2.2.52-3) unstable; urgency=medium
 
   [ Marco d'Itri ]
