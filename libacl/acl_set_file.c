@@ -19,10 +19,11 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
+#include "config.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <attr/xattr.h>
+#include <sys/xattr.h>
 #include "libacl.h"
 #include "__acl_to_xattr.h"
 
@@ -52,19 +53,6 @@ acl_set_file(const char *path_p, acl_type_t type, acl_t acl)
 		default:
 			errno = EINVAL;
 			return -1;
-	}
-
-	if (type == ACL_TYPE_DEFAULT) {
-		struct stat st;
-
-		if (stat(path_p, &st) != 0)
-			return -1;
-
-		/* Only directories may have default ACLs. */
-		if (!S_ISDIR(st.st_mode)) {
-			errno = EACCES;
-			return -1;
-		}
 	}
 
 	ext_acl_p = __acl_to_xattr(acl_obj_p, &size);

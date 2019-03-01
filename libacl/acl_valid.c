@@ -19,9 +19,10 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
+#include "config.h"
 #include <errno.h>
 #include <stdio.h>
-#include <acl/libacl.h>
+#include "libacl.h"
 
 
 /* 23.4.28 */

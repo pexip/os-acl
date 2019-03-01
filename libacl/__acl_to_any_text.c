@@ -19,12 +19,12 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
+#include "config.h"
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
 #include <pwd.h>
 #include <grp.h>
-#include <acl/libacl.h>
 #include "libacl.h"
 #include "misc.h"
 
@@ -159,7 +159,7 @@ acl_entry_to_any_str(const acl_entry_t entry_d, char *text_p, ssize_t size,
 				if (options & TEXT_NUMERIC_IDS)
 					str = NULL;
 				else
-					str = quote(user_name(
+					str = __acl_quote(user_name(
 						entry_obj_p->eid.qid), ":, \t\n\r");
 				if (str != NULL) {
 					strncpy(text_p, str, size);
@@ -182,7 +182,7 @@ acl_entry_to_any_str(const acl_entry_t entry_d, char *text_p, ssize_t size,
 				if (options & TEXT_NUMERIC_IDS)
 					str = NULL;
 				else
-					str = quote(group_name(
+					str = __acl_quote(group_name(
 						entry_obj_p->eid.qid), ":, \t\n\r");
 				if (str != NULL) {
 					strncpy(text_p, str, size);
@@ -247,6 +247,11 @@ acl_entry_to_any_str(const acl_entry_t entry_d, char *text_p, ssize_t size,
 		    options & TEXT_ALL_EFFECTIVE) {
 			x = (options & TEXT_SMART_INDENT) ?
 				((text_p - orig_text_p)/8) : TABS-1;
+
+			/* use at least one tab for indentation */
+			if (x > (TABS-1))
+				x = (TABS-1);
+
 			strncpy(text_p, tabs+x, size);
 			ADVANCE(TABS-x);
 

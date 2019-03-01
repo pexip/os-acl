@@ -15,6 +15,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include <stdio.h>
 #include <string.h>
 #include <limits.h>
@@ -23,7 +24,7 @@
 
 #define LINE_SIZE getpagesize()
 
-char *next_line(FILE *file)
+char *__acl_next_line(FILE *file)
 {
 	static char *line;
 	static size_t line_size;
@@ -31,7 +32,7 @@ char *next_line(FILE *file)
 	int eol = 0;
 
 	if (!line) {
-		if (high_water_alloc((void **)&line, &line_size, LINE_SIZE))
+		if (__acl_high_water_alloc((void **)&line, &line_size, LINE_SIZE))
 			return NULL;
 	}
 	c = line;
@@ -47,7 +48,7 @@ char *next_line(FILE *file)
 		if (feof(file))
 			break;
 		if (!eol) {
-			if (high_water_alloc((void **)&line, &line_size,
+			if (__acl_high_water_alloc((void **)&line, &line_size,
 					     2 * line_size))
 				return NULL;
 			c = strrchr(line, '\0');

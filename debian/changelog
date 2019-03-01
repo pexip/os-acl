@@ -1,3 +1,129 @@
+acl (2.2.53-4) unstable; urgency=medium
+
+  * Replace gettext with autopoint in autopkgtest Depends fields.
+
+ -- Guillem Jover <guillem@debian.org>  Fri, 01 Mar 2019 23:22:21 +0100
+
+acl (2.2.53-3) unstable; urgency=medium
+
+  * Run «autoreconf -f -i» in autopkgtests to handle modified build system
+    sources due to patching, triggering regeneration of the build system,
+    and failing because the exact tool versions are not available.
+
+ -- Guillem Jover <guillem@debian.org>  Fri, 01 Mar 2019 13:45:09 +0100
+
+acl (2.2.53-2) unstable; urgency=medium
+
+  * Fix build failure on GNU/kFreeBSD by defining ENODATA to ENOATTR if not
+    defined.
+
+ -- Guillem Jover <guillem@debian.org>  Fri, 01 Mar 2019 03:00:58 +0100
+
+acl (2.2.53-1) unstable; urgency=medium
+
+  * New upstream release. Closes: #912337
+    - Add upstream signing key, and modify debian/watch file to fetch and
+      check orig tarball signatures.
+    - Refresh patches:
+      + 00-no-debian-Makefile.patch: Remove, fixed upstream.
+      + 01-configure.in.patch: Ditto.
+      + 02-687535-fix-missing-ldflags.patch: Ditto.
+      + 10-590240-move-binaries-to-root-bin-dir.patch: Ditto.
+      + 20-testsuite.patch: Ditto.
+      + 11-636512-fix-ftbfs4hurd.patch: Rework completely into
+        build-no-PATH_MAX.patch.
+      + 12-643588-acl-autoconf-version-check.patch: Update, rename to
+        build-require-autoconf-version.patch.
+      + 50-typos.patch: Rename to man-fix-typos.patch.
+    - Remove private symbols marked optional, not exported anymore.
+    - Update debian/rules to handle the modernized upstream build system.
+    - Update autopkgtests to handle the modernized upstream build system.
+    - Update debian/copyright file.
+  * Include new pkg-config file.
+  * Enable all hardening build flags.
+  * Mark autopkgtest tests as flaky instead of superficial, they do not cope
+    well with the Debian buildd environment.
+  * Add minimally required build dependencies to autopkgtest Depends fields.
+    Closes: #923470
+  * Add a reference to mount(8) in acl(5) SEE ALSO section. Closes: #304764
+  * Document --restore=- in setfacl(1). Closes: #544716
+  * Document in package description that chacl is also provided.
+
+ -- Guillem Jover <guillem@debian.org>  Fri, 01 Mar 2019 00:35:02 +0100
+
+acl (2.2.52-5) unstable; urgency=medium
+
+  * Fix upstream test suite:
+    - Fix perl warning due to deprecated regex construct.
+    - Fix expected test results, and ls command output.
+  * Hook the upstream test suite into both the package build and autopkgtest.
+    For now ignore failures, and mark it as superficial.
+  * Fix several more typos in the man pages.
+  * Add descriptions to patches.
+  * Add Build-Depends-Package to the symbols file.
+
+ -- Guillem Jover <guillem@debian.org>  Sat, 16 Feb 2019 03:52:33 +0100
+
+acl (2.2.52-4) unstable; urgency=medium
+
+  * Salvage package, with ok from co-maintainer.
+    Thanks for all their past work on this package. Closes: #921974
+    - The updated Vcs fields point to the Debian packaging. Closes: #909308
+  * Remove debian/Makefile and stop removing doc dirs from debian/rules.
+    - Add patch to avoid upstream Makefile entering the debian/ directory.
+  * Update upstream URL (https) in debian/watch file.
+  * Update debian/watch to format version 4.
+  * Line-wrap and add a trailing comma to dependency field values.
+  * Update Homepage field URL to use https.
+  * Update debian/copyright:
+    - Remove original packaging information, present in the changelog.
+    - Switch to machine parseable format 1.0.
+    - Update copyright statements.
+  * Remove ancient Conflicts against acl, kerberos4kth packages.
+  * Remove obsolete Priority extra.
+  * Remove Priority required from shared library package.
+  * Cleanup debian/rules:
+    - Use $(CURDIR) instead of `pwd`.
+    - Remove phase prints and comment out DH_VERBOSE, make is verbose enough.
+    - Use dpkg architecture.mk fragment instead of ad-hoc variable assignment.
+    - Use dh_testdir instead of open-coding it.
+    - Use dh_testroot instead of open-coding it.
+    - Use dh_clean instead of ad-hoc cleaning.
+    - Do not create an upstream source tarball distribution.
+    - Remove unused stdenv variable.
+    - Use dh_installchangelogs instead of juggling doc/CHANGES around.
+    - Use dh_install, dh_installdocs, dh_installman and dh_link instead of
+      calling the upstream build system multiple times to install into the
+      package dirs.
+    - Rename LOCAL_CONFIGURE_OPTIONS to confflags.
+    - Use $(MAKE) instead of hard-coding the make command.
+    - Simplify *.pot file regeneration.
+    - Use dh_update_autotools_config instead of open-coding it.
+  * Switch to debhelper compatibility level 11.
+    - Remove now autotools-dev Build-Depends, depended by debhelper.
+  * Set Rules-Requires-Root to no, and stop setting INSTALL_USER and
+    INSTALL_GROUP, as the build system will default to the current user.
+  * Install static library into an arch-qualified path, and set
+    Multi-Arch:same for libacl1-dev package. Closes: #731292
+  * Switch to Standards-Version 4.3.0.
+  * Add a shared library symbols file. Closes: #677570
+    Thanks to Daniel Kahn Gillmor <dkg@fifthhorseman.net>.
+  * Mark private symbols as (optional) in symbols file.
+  * Improve a bit the package descriptions.
+  * Remove ancient versioned dpkg-dev Build-Depends.
+  * Reorganize binary package fields.
+  * Cleanup documentation installed:
+    - Stop installing irrelevant documents in the acl package. Closes: #508896
+    - Install the libacl.txt and extensions.txt into the libacl1-dev package.
+    - Fix typo for “setgid” in man page. Closes: #774612
+    - Fix typo for “ACL_OTHER” in man page. Closes: #787841
+  * Add a simple compile/link/execute autopkgtest for dynamic and static
+    linking. Thanks to Simon McVittie <smcv@debian.org>.
+  * Perform a proper and correct /usr-merge transition by moving the library
+    package contents from / to /usr.
+
+ -- Guillem Jover <guillem@debian.org>  Wed, 13 Feb 2019 04:10:57 +0100
+
 acl (2.2.52-3) unstable; urgency=medium
 
   [ Marco d'Itri ]
@@ -28,7 +154,7 @@ acl (2.2.52-1.1) unstable; urgency=high
 
 acl (2.2.52-1) unstable; urgency=low
 
-  * New upstream release 2.2.52 
+  * New upstream release 2.2.52
   * Standards Version is 3.9.4
   * Update debian/rules
     Upstream renamed build/ to package/
@@ -46,7 +172,7 @@ acl (2.2.52-1) unstable; urgency=low
 
 acl (2.2.51-8) unstable; urgency=low
 
-  * Enable hardening build flags 
+  * Enable hardening build flags
     Closes: #673998
   * DH compatibility level is 9
 
@@ -543,4 +669,3 @@ acl (2.0.2-1) unstable; urgency=low
      supported by ext2, ext3, and XFS)
 
  -- Nathan Scott <nathans@debian.org>  Tue, 26 Feb 2002 13:25:26 +1100
-
