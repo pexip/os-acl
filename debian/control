@@ -9,7 +9,7 @@ Standards-Version: 3.9.5
 Homepage: http://savannah.nongnu.org/projects/acl/
 Vcs-Git: git://git.savannah.nongnu.org/acl.git
 Vcs-Browser: http://git.savannah.gnu.org/cgit/acl.git
-XS-Pexip-Upstream: http://ftp.debian.org/debian/ stretch
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ buster
 
 Package: acl
 Depends: ${shlibs:Depends}, ${misc:Depends}, libacl1 (= ${binary:Version})
