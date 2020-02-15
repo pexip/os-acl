@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
+#include "config.h"
 #include <string.h>
 #include <pwd.h>
 #include <grp.h>
@@ -152,11 +153,14 @@ get_uid(const char *token, uid_t *uid_p)
 
 	if (get_id(token, uid_p) == 0)
 		return 0;
+	errno = 0;
 	passwd = getpwnam(token);
 	if (passwd) {
 		*uid_p = passwd->pw_uid;
 		return 0;
 	}
+	if (errno == 0)
+		errno = EINVAL;
 	return -1;
 }
 
@@ -168,11 +172,14 @@ get_gid(const char *token, gid_t *gid_p)
 
 	if (get_id(token, (uid_t *)gid_p) == 0)
 		return 0;
+	errno = 0;
 	group = getgrnam(token);
 	if (group) {
 		*gid_p = group->gr_gid;
 		return 0;
 	}
+	if (errno == 0)
+		errno = EINVAL;
 	return -1;
 }
 
@@ -206,7 +213,7 @@ parse_acl_entry(const char **text_p, acl_t *acl_p)
 			str = get_token(text_p);
 			if (str) {
 				entry_obj.etag = ACL_USER;
-				error = get_uid(unquote(str),
+				error = get_uid(__acl_unquote(str),
 						&entry_obj.eid.qid);
 				free(str);
 				if (error) {
@@ -225,7 +232,7 @@ parse_acl_entry(const char **text_p, acl_t *acl_p)
 			str = get_token(text_p);
 			if (str) {
 				entry_obj.etag = ACL_GROUP;
-				error = get_gid(unquote(str),
+				error = get_gid(__acl_unquote(str),
 						&entry_obj.eid.qid);
 				free(str);
 				if (error) {
@@ -297,8 +304,11 @@ parse_acl_entry(const char **text_p, acl_t *acl_p)
 create_entry:
 	if (acl_create_entry(acl_p, &entry_d) != 0)
 		return -1;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Waddress"
 	if (acl_copy_entry(entry_d, int2ext(&entry_obj)) != 0)
 		return -1;
+#pragma GCC diagnostic pop
 	return 0;
 
 fail:

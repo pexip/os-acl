@@ -19,12 +19,12 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
+#include "config.h"
 #include <sys/types.h>
-#include <attr/xattr.h>
+#include <sys/xattr.h>
 #include "byteorder.h"
 #include "acl_ea.h"
-#include "config.h"
-
+#include "libacl.h"
 
 /* 23.4.8 */
 int

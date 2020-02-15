@@ -9,18 +9,18 @@ listed in parentheses.
 
 Cry immediately if we are not running as root.
 
-	$ id -u
-	> 0
+	$ require_root
 
 
 First, set up a temporary directory and create a regular file with
 defined permissions.
 
+	$ umask 022
 	$ mkdir d
 	$ cd d
 	$ umask 027
 	$ touch f
-	$ ls -l f | awk -- '{ print $1, $3, $4 }'
+	$ ls -l f | awk -- '{ print $1, $3, $4 }' | sed 's/\\.//g'
 	> -rw-r----- root root
 
 
@@ -40,7 +40,7 @@ Now, change the ownership of the file to bin:bin and verify that this
 gives user bin write access.
 
 	$ chown bin:bin f
-	$ ls -l f | awk -- '{ print $1, $3, $4 }'
+	$ ls -l f | awk -- '{ print $1, $3, $4 }' | sed 's/\\.//g'
 	> -rw-r----- bin bin
 	$ su bin
 	$ echo bin >> f
@@ -257,12 +257,12 @@ directories if the file has an ACL and only CAP_FOWNER would grant them.
 	$ mkdir -m 600 x
 	$ chown daemon:daemon x
 	$ echo j > x/j
-	$ ls -l x/j | awk -- '{ print $1, $3, $4 }'
+	$ ls -l x/j | awk -- '{ print $1, $3, $4 }' | sed 's/\\.//g'
 	> -rw-r----- root root
 
 	$ setfacl -m u:daemon:r x
 
-	$ ls -l x/j | awk -- '{ print $1, $3, $4 }'
+	$ ls -l x/j | awk -- '{ print $1, $3, $4 }' | sed 's/\\.//g'
 	> -rw-r----- root root
 	(With the bug this gives: `ls: x/j: Permission denied'.)
 

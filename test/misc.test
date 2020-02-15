@@ -8,6 +8,7 @@ two dummy users (bin and daemon) and a dummy group (daemon).
 	$ touch f
 	  
 Only change a base ACL:
+	$ chacl u::rw,g::r,o::- f
 	$ setfacl -m u::r f
 	$ setfacl -m u::rw,u:bin:rw f
 	$ ls -dl f | awk '{print $1}'
@@ -254,7 +255,7 @@ Add some users and groups
 Symlink in directory with default ACL?
 	 
 	$ ln -s d d/l
-	$ ls -dl d/l | awk '{print $1}' | sed 's/\.$//g'
+	$ ls -dl d/l | awk '{print $1}' | sed 's/\\.$//g'
 	> lrwxrwxrwx
 
 	$ ls -dl -L d/l | awk '{print $1}'
@@ -343,7 +344,7 @@ Remove the default ACL
 Reset to base entries
 	 
 	$ setfacl -b d
-	$ ls -dl d | awk '{print $1}' | sed 's/\.$//g'
+	$ ls -dl d | awk '{print $1}' | sed 's/\\.$//g'
 	> drwxr-x---
 
 	$ getfacl --omit-header d
@@ -355,7 +356,7 @@ Reset to base entries
 Now, chmod should change the group_obj entry
 	 
 	$ chmod 775 d
-	$ ls -dl d | awk '{print $1}' | sed 's/\.$//g'
+	$ ls -dl d | awk '{print $1}' | sed 's/\\.$//g'
 	> drwxrwxr-x
 	
 	$ getfacl --omit-header d
@@ -452,6 +453,45 @@ Dangling symlink test http://savannah.nongnu.org/bugs/?28131
 	> 
 	$ setfacl -RL -m u:bin:rw d
 	> setfacl: d/b: No such file or directory
+	$ rm -R d
+
+Handle escaped literal backslash followed by numeric username
+	$ mkdir d
+	$ touch d/f
+	$ setfacl -m u:domain\\\\12345:rw- d/f
+	$ getfacl --omit-header d/f
+	> user::rw-
+	> user:domain\\12345:rw-
+	> group::rw-
+	> mask::rw-
+	> other::r--
+	> 
+	$ rm -R d
+
+Handle escaped literal backslash
+	$ mkdir d
+	$ touch d/f
+	$ setfacl -m u:domain\\\\user:rw- d/f
+	$ getfacl --omit-header d/f
+	> user::rw-
+	> user:domain\\user:rw-
+	> group::rw-
+	> mask::rw-
+	> other::r--
+	> 
+	$ rm -R d
+
+Handle escaped literal characters by octal code (bin)
+	$ mkdir d
+	$ touch d/f
+	$ setfacl -m u:\\142\\151\\156:rw- d/f
+	$ getfacl --omit-header d/f
+	> user::rw-
+	> user:bin:rw-
+	> group::rw-
+	> mask::rw-
+	> other::r--
+	> 
 	$ rm -R d
 
 Malformed restore file

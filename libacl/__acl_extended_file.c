@@ -19,14 +19,14 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
+#include "config.h"
 #include <unistd.h>
-#include <attr/xattr.h>
+#include <sys/xattr.h>
 #include "libacl.h"
 
 #include "byteorder.h"
 #include "acl_ea.h"
 #include "__acl_extended_file.h"
-
 
 int
 __acl_extended_file(const char *path_p,

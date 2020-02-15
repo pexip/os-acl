@@ -17,12 +17,13 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include "misc.h"
 
-char *unquote(char *str)
+char *__acl_unquote(char *str)
 {
 	unsigned char *s, *t;
 
@@ -46,6 +47,8 @@ char *unquote(char *str)
 			       ((*(s+2) - '0') << 3) +
 			       ((*(s+3) - '0')     );
 			s += 3;
+		} else if (*s == '\\' && *(s+1) == '\\') {
+			*t++ = *s++;
 		} else
 			*t++ = *s;
 	} while (*s++ != '\0');
