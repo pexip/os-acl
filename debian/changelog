@@ -1,3 +1,9 @@
+acl (2.2.53-4pexip1) pexip; urgency=medium
+
+  * Migrate to Buster
+
+ -- Vincent Sanders <vince@pexip.com>  Mon, 17 Feb 2020 10:50:57 +0000
+
 acl (2.2.53-4) unstable; urgency=medium
 
   * Replace gettext with autopoint in autopkgtest Depends fields.
