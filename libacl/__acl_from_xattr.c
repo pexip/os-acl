@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
+#include "config.h"
 #include "libacl.h"
 
 #include "byteorder.h"
@@ -33,7 +34,7 @@ __acl_from_xattr(const char *ext_acl_p, size_t size)
 	acl_ea_entry *ext_end_p;
 	acl_obj *acl_obj_p;
 	acl_entry_obj *entry_obj_p;
-	int entries, error;
+	int entries;
 
 	if (size < sizeof(acl_ea_header)) {
 		errno = EINVAL;
@@ -77,7 +78,7 @@ __acl_from_xattr(const char *ext_acl_p, size_t size)
 				break;
 
 			default:
-				error = EINVAL;
+				errno = EINVAL;
 				goto fail;
 		}
 		ext_entry_p++;
