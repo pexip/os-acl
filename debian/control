@@ -4,13 +4,13 @@ Priority: optional
 Maintainer: Guillem Jover <guillem@debian.org>
 Rules-Requires-Root: no
 Build-Depends:
- debhelper (>= 11),
+ debhelper-compat (= 13),
  autoconf,
  automake,
  gettext,
  libtool,
  libattr1-dev (>= 1:2.4.46-8),
-Standards-Version: 4.3.0
+Standards-Version: 4.5.1
 Homepage: https://savannah.nongnu.org/projects/acl/
 Vcs-Browser: https://git.hadrons.org/cgit/debian/pkgs/acl.git
 Vcs-Git: https://git.hadrons.org/git/debian/pkgs/acl.git
@@ -59,3 +59,22 @@ Depends:
 Description: access control list - shared library
  This package contains the shared library containing the POSIX 1003.1e
  draft standard 17 functions for manipulating access control lists.
+
+Package: acl-udeb
+Package-Type: udeb
+Section: debian-installer
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ libacl1-udeb (= ${binary:Version}),
+Description: access control list - udeb utilities
+
+Package: libacl1-udeb
+Package-Type: udeb
+Section: debian-installer
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: access control list - udeb shared library
