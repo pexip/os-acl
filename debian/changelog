@@ -1,3 +1,62 @@
+acl (2.2.53-10) unstable; urgency=medium
+
+  * Add missing include for dpkg architecture.mk.
+
+ -- Guillem Jover <guillem@debian.org>  Sun, 31 Jan 2021 23:06:47 +0100
+
+acl (2.2.53-9) unstable; urgency=medium
+
+  * Add or update Forwarded and Origin information in patches.
+  * Switch to Standards-Version 4.5.1 (no changes needed).
+  * Add debian/upstream/metadata file.
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 24 Dec 2020 15:53:27 +0100
+
+acl (2.2.53-8) unstable; urgency=medium
+
+  * Clean include/acl and include/sys to fix building twice in a row.
+
+ -- Guillem Jover <guillem@debian.org>  Fri, 01 May 2020 05:41:09 +0200
+
+acl (2.2.53-7) unstable; urgency=medium
+
+  * Properly link statically the autopkgtest testing the library linkage.
+  * Add files not being installed to debian/not-installed.
+  * Switch to debhelper compatibility level 13.
+  * Switch to default dh_makeshlibs behavior instead of passing -V.
+  * Switch to dh sequencer.
+  * Make the testsuite fatal on architectures known to pass it, to avoid
+    future regressions.
+  * Add acl-udeb and libacl1-udeb binary packages, for use by rsync-udeb.
+    Thanks to Samuel Henrique <samueloph@debian.org>. Closes: #949712
+
+ -- Guillem Jover <guillem@debian.org>  Wed, 22 Apr 2020 02:18:06 +0200
+
+acl (2.2.53-6) unstable; urgency=medium
+
+  * Redirect stderr to stdout globally in autopkgtests instead of doing
+    that per command.
+  * Enable set -x and -u in autopkgtests.
+  * Add support for cross-compilation to autopkgtests. Closes: #947048
+  * Update upstream email address. Closes: #949688
+  * Fix usage of uninitialized variable in getfacl. Closes: #612599
+    Thanks to Vasily Gurevich <vas.gurevich@gmail.com>.
+  * Switch to Standards-Version 4.5.0 (no changes needed).
+
+ -- Guillem Jover <guillem@debian.org>  Sun, 01 Mar 2020 02:06:51 +0100
+
+acl (2.2.53-5) unstable; urgency=medium
+
+  * Switch to debhelper-compat (= 12) in Build-Depends from debian/compat.
+  * Switch to Standards-Version 4.4.0 (no changes needed).
+  * Update French translation. Closes: #931274
+    Thanks to Jean-Philippe MENGUAL <jpmengual@debian.org>.
+  * Fix cross-compilation for musl-based systems by bumping the minimum
+    required gettext version to the one that stopped checking for internal
+    GNU gettext symbols, which musl does not provide.
+
+ -- Guillem Jover <guillem@debian.org>  Tue, 24 Sep 2019 15:23:30 +0200
+
 acl (2.2.53-4pexip2) pexip; urgency=medium
 
   * Rebuild in buster environment
