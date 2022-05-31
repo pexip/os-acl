@@ -15,7 +15,7 @@ Standards-Version: 4.3.0
 Homepage: https://savannah.nongnu.org/projects/acl/
 Vcs-Browser: https://git.hadrons.org/cgit/debian/pkgs/acl.git
 Vcs-Git: https://git.hadrons.org/git/debian/pkgs/acl.git
-XS-Pexip-Upstream: http://ftp.debian.org/debian/ buster
+XS-Pexip-Upstream: http://deb.debian.org/debian/ bullseye
 
 Package: acl
 Architecture: any
