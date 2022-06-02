@@ -1,3 +1,9 @@
+acl (2.2.53-10pexip1) pexip; urgency=medium
+
+  * Initial bullseye build
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Thu, 02 Jun 2022 14:41:58 +0100
+
 acl (2.2.53-10) unstable; urgency=medium
 
   * Add missing include for dpkg architecture.mk.
