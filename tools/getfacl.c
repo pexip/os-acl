@@ -3,7 +3,7 @@
   (Linux Access Control List Management)
 
   Copyright (C) 1999-2002
-  Andreas Gruenbacher, <a.gruenbacher@bestbits.at>
+  Andreas Gruenbacher, <andreas.gruenbacher@gmail.com>
  	
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -59,6 +59,7 @@ struct option long_options[] = {
 	{ "tabular",	0, 0, 't' },
 	{ "absolute-names",	0, 0, 'p' },
 	{ "numeric",	0, 0, 'n' },
+	{ "one-file-system", 0, 0, 1 },
 #endif
 	{ "default",	0, 0, 'd' },
 	{ "version",	0, 0, 'v' },
@@ -577,7 +578,7 @@ void help(void)
 #if !POSIXLY_CORRECT
 	} else {
 		printf(_(
-"  -a,  --access           display the file access control list only\n"
+"  -a, --access            display the file access control list only\n"
 "  -d, --default           display the default access control list only\n"
 "  -c, --omit-header       do not display the comment header\n"
 "  -e, --all-effective     print all effective rights\n"
@@ -588,6 +589,7 @@ void help(void)
 "  -P, --physical          physical walk, do not follow symbolic links\n"
 "  -t, --tabular           use tabular output format\n"
 "  -n, --numeric           print numeric user/group identifiers\n"
+"      --one-file-system   skip files on different filesystems\n"
 "  -p, --absolute-names    don't strip leading '/' in pathnames\n"));
 	}
 #endif
@@ -697,6 +699,10 @@ int main(int argc, char *argv[])
 			case 'n':  /* numeric */
 				opt_numeric = 1;
 				print_options |= TEXT_NUMERIC_IDS;
+				break;
+
+			case 1: /* one filesystem */
+				walk_flags |= WALK_TREE_ONE_FILESYSTEM;
 				break;
 
 			case 'v':  /* print version */

@@ -2,7 +2,7 @@
   File: acl_create_entry.c
 
   Copyright (C) 1999, 2000
-  Andreas Gruenbacher <a.gruenbacher@bestbits.at>
+  Andreas Gruenbacher <andreas.gruenbacher@gmail.com>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@
 acl_entry_obj *
 __acl_create_entry_obj(acl_obj *acl_obj_p)
 {
-	acl_entry_obj *entry_obj_p;
+	acl_entry_obj *entry_obj_p, *prev;
 
 	if (acl_obj_p->aprealloc == acl_obj_p->aprealloc_end) {
 		entry_obj_p = new_obj_p(acl_entry);
@@ -39,10 +39,11 @@ __acl_create_entry_obj(acl_obj *acl_obj_p)
 	acl_obj_p->aused++;
 
 	/* Insert at the end of the entry ring */
-	entry_obj_p->eprev = acl_obj_p->aprev;
+	prev = acl_obj_p->aprev;
+	entry_obj_p->eprev = prev;
 	entry_obj_p->enext = (acl_entry_obj *)acl_obj_p;
-	entry_obj_p->eprev->enext = entry_obj_p;
-	entry_obj_p->enext->eprev = entry_obj_p;
+	prev->enext = entry_obj_p;
+	acl_obj_p->aprev = entry_obj_p;
 	
 	entry_obj_p->econtainer = acl_obj_p;
 	init_acl_entry_obj(*entry_obj_p);
