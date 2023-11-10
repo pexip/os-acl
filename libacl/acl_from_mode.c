@@ -2,7 +2,7 @@
   File: acl_from_mode.c
 
   Copyright (C) 1999, 2000
-  Andreas Gruenbacher, <a.gruenbacher@bestbits.at>
+  Andreas Gruenbacher, <andreas.gruenbacher@gmail.com>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -42,7 +42,7 @@ acl_from_mode(mode_t mode)
 
 	acl_obj_p = __acl_init_obj(3);
 	if (!acl_obj_p)
-		goto fail;
+		return NULL;
 
 	entry_obj_p = __acl_create_entry_obj(acl_obj_p);
 	if (!entry_obj_p)

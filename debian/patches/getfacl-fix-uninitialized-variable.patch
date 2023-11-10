@@ -1,7 +1,7 @@
 Description: Fix usage of uninitialized variable.
 Author: Vasily Gurevich <vas.gurevich@gmail.com>
 Bug-Debian: https://bugs.debian.org/612599
-Forwarded: no
+Forwarded: yes
 Last-Update: 2020-03-01
 
 ---
@@ -10,7 +10,7 @@ Last-Update: 2020-03-01
 
 --- a/tools/getfacl.c
 +++ b/tools/getfacl.c
-@@ -380,6 +380,8 @@ int do_show(FILE *stream, const char *pa
+@@ -381,6 +381,8 @@ int do_show(FILE *stream, const char *pa
  			show_line(stream, NULL, NULL, NULL, NULL,
  			          &dacl_names, dacl, &dacl_ent, dacl_mask);
  			continue;
