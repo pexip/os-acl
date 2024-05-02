@@ -14,13 +14,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-AC_INIT([acl], [2.3.1], [acl-devel@nongnu.org])
+AC_PREREQ([2.69])
+AC_INIT([acl], [2.3.2], [acl-devel@nongnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_HEADER([include/config.h])
+AC_CONFIG_HEADERS([include/config.h])
 AC_PREFIX_DEFAULT(/usr)
 
-AM_INIT_AUTOMAKE([-Wall foreign 1.11 dist-xz subdir-objects])
+AM_INIT_AUTOMAKE([-Wall foreign 1.15 dist-xz subdir-objects])
 AM_SILENT_RULES([yes])
 
 AC_PROG_CC
@@ -33,7 +34,10 @@ AC_SYS_LARGEFILE
 AM_PROG_AR
 LT_INIT
 
-AM_GNU_GETTEXT_VERSION([0.18.2])
+dnl Minimal version supporting AM_GNU_GETTEXT_REQUIRE_VERSION.
+AM_GNU_GETTEXT_VERSION([0.19.6])
+dnl Require at least the following version, but use the latest available one.
+AM_GNU_GETTEXT_REQUIRE_VERSION([0.19.8])
 AM_GNU_GETTEXT([external])
 
 AC_ARG_ENABLE([debug],
@@ -44,10 +48,8 @@ AS_IF([test "x$enable_debug" = "xyes"],
 
 dnl Automatically increment the revision for every release.
 set -- $(IFS=.; echo ${PACKAGE_VERSION})
-if test $# -ne 3 -o ${#1} -gt 1 -o ${#2} -gt 1 -o ${#3} -gt 2; then
-	echo "This PACKAGE_VERSION breaks LT_REVISION" >&2
-	exit 1
-fi
+AS_IF([test $# -ne 3 -o ${#1} -gt 1 -o ${#2} -gt 1 -o ${#3} -gt 2],
+	[AC_MSG_ERROR([This PACKAGE_VERSION breaks LT_REVISION])])
 LT_REVISION=$(printf "%d%d%02d" "$1" "$2" "$3")
 AC_SUBST(LT_REVISION)
 

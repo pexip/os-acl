@@ -4,19 +4,18 @@
   Copyright (C) 1999, 2000
   Andreas Gruenbacher, <andreas.gruenbacher@gmail.com>
 
-  This program is free software; you can redistribute it and/or
+  This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
   version 2.1 of the License, or (at your option) any later version.
 
-  This program is distributed in the hope that it will be useful,
+  This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
   Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  License along with this library; if not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "config.h"
@@ -64,7 +63,7 @@ __acl_to_any_text(acl_t acl, ssize_t *len_p, const char *prefix,
 	FOREACH_ACL_ENTRY(entry_obj_p, acl_obj_p) {
 	repeat:
 		entry_len = acl_entry_to_any_str(int2ext(entry_obj_p),
-		                                 string_obj_p->sstr + len,
+		                                 string_obj_p->s_str + len,
 						 size-len,
 						 int2ext(mask_obj_p),
 						 prefix,
@@ -81,20 +80,20 @@ __acl_to_any_text(acl_t acl, ssize_t *len_p, const char *prefix,
 			goto repeat;
 		} else
 			len += entry_len;
-		string_obj_p->sstr[len] = separator;
+		string_obj_p->s_str[len] = separator;
 		len++;
 	}
 	if (len)
 		len--;
 	if (len && suffix) {
-		strcpy(string_obj_p->sstr + len, suffix);
+		strcpy(string_obj_p->s_str + len, suffix);
 		len += suffix_len;
 	} else
-		string_obj_p->sstr[len] = '\0';
+		string_obj_p->s_str[len] = '\0';
 
 	if (len_p)
 		*len_p = len;
-	return (char *)int2ext(string_obj_p);
+	return string_obj_p ? string_obj_p->s_str : NULL;
 
 fail:
 	free_obj_p(string_obj_p);

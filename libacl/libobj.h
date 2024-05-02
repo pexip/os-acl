@@ -1,18 +1,18 @@
 /*
   Copyright (C) 2000, 2002, 2003  Andreas Gruenbacher <agruen@suse.de>
 
-  This program is free software: you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation, either version 2.1 of the License, or
-  (at your option) any later version.
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
 
-  This program is distributed in the hope that it will be useful,
+  This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU Lesser General Public License for more details.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
 
-  You should have received a copy of the GNU Lesser General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <https://www.gnu.org/licenses/>.
 */
 
 #ifndef __LIBOBJ_H
@@ -76,15 +76,10 @@ struct string_obj_tag;
 typedef struct string_obj_tag string_obj;
 
 /* string object */
-struct __string_ext {
-	char			s_str[0];
-};
 struct string_obj_tag {
 	obj_prefix		o_prefix;
-	struct __string_ext	i;
+	char			s_str[0];
 };
-
-#define sstr i.s_str
 
 /* object creation, destruction, conversion and validation */
 void *__new_var_obj_p(int magic, size_t size) hidden;
