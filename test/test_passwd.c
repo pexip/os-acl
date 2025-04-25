@@ -1,4 +1,5 @@
 #include "config.h"
+#include <assert.h>
 #include <sys/types.h>
 #include <stdio.h>
 #include <string.h>
@@ -9,12 +10,7 @@
 #include <pwd.h>
 
 #define TEST_PASSWD "test/test.passwd"
-static char pwfile[PATH_MAX];
-static void setup_pwfile() __attribute__((constructor));
-
-static void setup_pwfile() {
-	snprintf(pwfile, sizeof(pwfile), "%s/%s", BASEDIR, TEST_PASSWD);
-}
+static char pwfile[] = BASEDIR "/" TEST_PASSWD;
 
 #define ALIGN_MASK(x, mask)    (((x) + (mask)) & ~(mask))
 #define ALIGN(x, a)            ALIGN_MASK(x, (typeof(x))(a) - 1)
@@ -115,6 +111,16 @@ EXPORT
 int getpwnam_r(const char *name, struct passwd *pwd, char *buf, size_t buflen,
 	       struct passwd **result)
 {
+	static size_t last_buflen = -1;
+
+	assert(last_buflen == -1 || buflen > last_buflen);
+	if (buflen < 170000) {
+		last_buflen = buflen;
+		*result = NULL;
+		return ERANGE;
+	}
+	last_buflen =- 1;
+
 	return test_getpw_match(pwd, buf, buflen, result, match_name, name);
 }
 
