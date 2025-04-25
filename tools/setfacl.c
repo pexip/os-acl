@@ -5,19 +5,18 @@
   Copyright (C) 1999-2002
   Andreas Gruenbacher, <andreas.gruenbacher@gmail.com>
 
-  This program is free software; you can redistribute it and/or
+  This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
   version 2.1 of the License, or (at your option) any later version.
 
-  This program is distributed in the hope that it will be useful,
+  This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
   Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  License along with this library; if not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "config.h"
@@ -46,7 +45,7 @@
 #define POSIXLY_CMD_LINE_OPTIONS "-:bkndvhm:M:x:X:"
 #define POSIXLY_CMD_LINE_SPEC "[-bknd] {-m|-M|-x|-X ... } file ..."
 
-struct option long_options[] = {
+static const struct option long_options[] = {
 #if !POSIXLY_CORRECT
 	{ "set",		1, 0, 's' },
 	{ "set-file",		1, 0, 'S' },
@@ -332,7 +331,7 @@ int main(int argc, char *argv[])
 {
 	int opt;
 	int saw_files = 0;
-	int status = 0;
+	int status = 0, status2;
 	FILE *file;
 	int which;
 	int lineno;
@@ -555,7 +554,9 @@ int main(int argc, char *argv[])
 					goto synopsis;
 				saw_files = 1;
 
-				status = next_file(optarg, seq);
+				status2 = next_file(optarg, seq);
+				if (status == 0)
+					status = status2;
 				break;
 
 			case 'B':  /* restore ACL backup */
@@ -642,7 +643,9 @@ int main(int argc, char *argv[])
 			goto synopsis;
 		saw_files = 1;
 
-		status = next_file(argv[optind++], seq);
+		status2 = next_file(argv[optind++], seq);
+		if (status == 0)
+			status = status2;
 	}
 	if (!saw_files)
 		goto synopsis;

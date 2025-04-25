@@ -4,19 +4,18 @@
   Copyright (C) 1999, 2000, 2001
   Andreas Gruenbacher, <andreas.gruenbacher@gmail.com>
 
-  This program is free software; you can redistribute it and/or
+  This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
   version 2.1 of the License, or (at your option) any later version.
 
-  This program is distributed in the hope that it will be useful,
+  This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
   Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  License along with this library; if not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "config.h"
@@ -123,64 +122,6 @@ after_token:
 		ep++;
 	*text_p = ep;
 	return token;
-}
-
-
-static int
-get_id(const char *token, id_t *id_p)
-{
-	char *ep;
-	long l;
-	l = strtol(token, &ep, 0);
-	if (*ep != '\0')
-		return -1;
-	if (l < 0) {
-		/*
-		  Negative values are interpreted as 16-bit numbers,
-		  so that id -2 maps to 65534 (nobody/nogroup), etc.
-		*/
-		l &= 0xFFFF;
-	}
-	*id_p = l;
-	return 0;
-}
-
-
-static int
-get_uid(const char *token, uid_t *uid_p)
-{
-	struct passwd *passwd;
-
-	if (get_id(token, uid_p) == 0)
-		return 0;
-	errno = 0;
-	passwd = getpwnam(token);
-	if (passwd) {
-		*uid_p = passwd->pw_uid;
-		return 0;
-	}
-	if (errno == 0)
-		errno = EINVAL;
-	return -1;
-}
-
-
-static int
-get_gid(const char *token, gid_t *gid_p)
-{
-	struct group *group;
-
-	if (get_id(token, (uid_t *)gid_p) == 0)
-		return 0;
-	errno = 0;
-	group = getgrnam(token);
-	if (group) {
-		*gid_p = group->gr_gid;
-		return 0;
-	}
-	if (errno == 0)
-		errno = EINVAL;
-	return -1;
 }
 
 
