@@ -1,3 +1,9 @@
+acl (2.3.2-2+pexip25u1) pexip-trixie; urgency=medium
+
+  * Initial trixie build
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Tue, 29 Apr 2025 22:26:57 +0100
+
 acl (2.3.2-2) unstable; urgency=medium
 
   * Add patch from upstream:
